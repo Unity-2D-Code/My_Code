@@ -1,1 +1,1 @@
-# My_Code
+# Screen_Resizer_Script
