@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Resize_Script : MonoBehaviour
+{
+    public GameObject backgroundImage;
+
+    public Camera mainCamera;
+
+
+    private void Start()
+    {
+        scaleBackgroundImageFitScreenSize();
+    }
+
+    private void scaleBackgroundImageFitScreenSize()
+    {
+        // Step 1: Get Device Screen Aspect =============
+        Vector2 deviceScreenResolution = new Vector2(Screen.width, Screen.height);
+        print(deviceScreenResolution);
+
+        float screenHeight = Screen.height;
+        float screenWidth = Screen.width;
+
+        float DEVICE_SCREEN_ASPECT = screenWidth / screenHeight;
+        print("DEVICE_SCREEN_ASPECT:" + DEVICE_SCREEN_ASPECT.ToString());
+
+        // Step 2 : Set Main Camera's aspect = Device's Aspect
+
+        mainCamera.aspect = DEVICE_SCREEN_ASPECT;
+
+
+        // Step 3 : Scale Background Image to tit with Camera Size
+
+        float cameraHeight = 100.0f * mainCamera.orthographicSize * 2.0f;
+        float cameraWidth = cameraHeight * DEVICE_SCREEN_ASPECT;
+
+        print("cameraHeight:" + cameraHeight.ToString());
+        print("cameraWidth:" + cameraWidth.ToString());
+
+        // Get Background Image Size
+
+        SpriteRenderer backgroundImageSR = backgroundImage.GetComponent<SpriteRenderer>();
+        float backgroundImageHeight = backgroundImageSR.sprite.rect.height;
+        float backgroundImageWidth = backgroundImageSR.sprite.rect.width;
+
+        print("backgroundImageHeight:" + backgroundImageHeight.ToString());
+        print("backgroundImageWidth:" + backgroundImageWidth.ToString());
+    }
+
+} // class
